@@ -1,5 +1,5 @@
 <!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0-b478feaa9aab4375eba71de77b4ca138ad2f62aa  -->
-<jasperReport name="funcionarios-03" language="java" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2eee18c4-842f-4320-8dbf-40a2c892c9b1">
+<jasperReport name="funcionarios-04" language="java" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2eee18c4-842f-4320-8dbf-40a2c892c9b1" summaryWithPageHeaderAndFooter="true" floatColumnFooter="true" summaryNewPage="true" titleNewPage="true">
 	<property name="com.jaspersoft.studio.data.sql.tables" value="amFzcGVyY3Vyc28uZW1wcmVzYXMgQVMgLDIyNCw2MSxmYjU4ZmQ2NS0yNzAyLTQyNDQtODQ2Mi1m&#xa;MWE3YjMyNDlhMjg7amFzcGVyY3Vyc28uZnVuY2lvbmFyaW9zICwxNSwxNSwwY2M1YjRiNS04Nzk3&#xa;LTQ5MTgtOTUyMy0xNTkyNGRmOGRlNDk7"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL Udemy Data Adapter"/>
 	<style name="Estilo_Cores_Alternadas" mode="Opaque" backcolor="#FFFFFF">
@@ -68,6 +68,12 @@ FROM jaspercurso.funcionarios,
 	</variable>
 	<variable name="SALARIO_MEDIA_GERAL" calculation="Average" class="java.math.BigDecimal">
 		<expression><![CDATA[$F{salario}]]></expression>
+	</variable>
+	<variable name="MAIOR_SALARIO" calculation="Highest" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{salario}]]></expression>
+	</variable>
+	<variable name="MENOR_SALARIO" resetType="Page" calculation="Lowest" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{salario}==null?new BigDecimal(0.00):$F{salario}]]></expression>
 	</variable>
 	<background splitType="Stretch"/>
 	<title height="60" splitType="Stretch">
@@ -160,16 +166,16 @@ FROM jaspercurso.funcionarios,
 		</band>
 	</detail>
 	<columnFooter height="30" splitType="Stretch">
-		<element kind="staticText" uuid="9698ad33-bbeb-4fcc-bf37-6757be6e9923" x="170" y="-1" width="100" height="30" fontSize="12.0" bold="true">
+		<element kind="staticText" uuid="9698ad33-bbeb-4fcc-bf37-6757be6e9923" x="170" y="-1" width="100" height="30" fontSize="12.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
 			<text><![CDATA[Total:]]></text>
 		</element>
-		<element kind="staticText" uuid="37b73f03-ae2d-49c5-ab61-c431b3078a07" x="370" y="0" width="100" height="30" fontSize="12.0" bold="true">
+		<element kind="staticText" uuid="37b73f03-ae2d-49c5-ab61-c431b3078a07" x="370" y="0" width="100" height="30" fontSize="12.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
 			<text><![CDATA[Média:]]></text>
 		</element>
-		<element kind="textField" uuid="0accf844-ecc3-4e54-82d1-1470fd27a949" x="270" y="0" width="100" height="30" fontSize="12.0" pattern="¤ #,##0.00;¤ -#,##0.00">
+		<element kind="textField" uuid="0accf844-ecc3-4e54-82d1-1470fd27a949" x="270" y="0" width="100" height="30" fontSize="12.0" pattern="¤ #,##0.00;¤ -#,##0.00" vTextAlign="Middle">
 			<expression><![CDATA[$V{SALARIO_TOTAL_PAGE}]]></expression>
 		</element>
-		<element kind="textField" uuid="e6a8b91a-1d7f-4b82-8a15-8fa26193a05b" x="470" y="-1" width="100" height="30" fontSize="12.0" pattern="¤ #,##0.00;¤ -#,##0.00">
+		<element kind="textField" uuid="e6a8b91a-1d7f-4b82-8a15-8fa26193a05b" x="470" y="-1" width="100" height="30" fontSize="12.0" pattern="¤ #,##0.00;¤ -#,##0.00" vTextAlign="Middle">
 			<expression><![CDATA[$V{SALARIO_MEDIA_PAGE}]]></expression>
 		</element>
 	</columnFooter>
@@ -184,12 +190,27 @@ FROM jaspercurso.funcionarios,
 			<expression><![CDATA[" de " + $V{PAGE_NUMBER}]]></expression>
 		</element>
 	</pageFooter>
+	<lastPageFooter height="30">
+		<element kind="rectangle" uuid="4e2cbc38-fcdf-489d-a590-8ea29ebe1b97" x="0" y="0" width="572" height="30" backcolor="#FFFFCC"/>
+		<element kind="textField" uuid="db7cf26a-813e-40ea-ad1f-35baae77c419" x="270" y="0" width="100" height="30" fontSize="12.0" vTextAlign="Middle">
+			<expression><![CDATA[$V{MAIOR_SALARIO}]]></expression>
+		</element>
+		<element kind="staticText" uuid="053c9707-052b-4c53-9286-7fd9b34441d9" x="170" y="0" width="100" height="30" fontSize="12.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
+			<text><![CDATA[Maior Salário:]]></text>
+		</element>
+		<element kind="staticText" uuid="8745adeb-f6b0-4219-bdb6-aaad7a07c6da" x="370" y="0" width="100" height="30" fontSize="12.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
+			<text><![CDATA[Menor Salário:]]></text>
+		</element>
+		<element kind="textField" uuid="6351aae0-a6e9-4dcf-a4af-a51f9cf66c6e" x="470" y="0" width="100" height="30" fontSize="12.0" blankWhenNull="true" vTextAlign="Middle">
+			<expression><![CDATA[$V{MENOR_SALARIO}]]></expression>
+		</element>
+	</lastPageFooter>
 	<summary height="30" splitType="Stretch">
 		<element kind="rectangle" uuid="0abe2a80-9b55-4f45-96ea-30d2f7278d9d" x="0" y="0" width="572" height="30" backcolor="#E3E3E3"/>
-		<element kind="staticText" uuid="002c5451-dfeb-435e-bfc1-22d0ed159f9f" x="170" y="-1" width="100" height="30" fontSize="12.0" bold="true">
+		<element kind="staticText" uuid="002c5451-dfeb-435e-bfc1-22d0ed159f9f" x="170" y="-1" width="100" height="30" fontSize="12.0" bold="true" hTextAlign="Right">
 			<text><![CDATA[Total:]]></text>
 		</element>
-		<element kind="staticText" uuid="9cf89fd7-9bf4-43b7-acd3-f15050479c76" x="370" y="0" width="100" height="30" fontSize="12.0" bold="true">
+		<element kind="staticText" uuid="9cf89fd7-9bf4-43b7-acd3-f15050479c76" x="370" y="0" width="100" height="30" fontSize="12.0" bold="true" hTextAlign="Right">
 			<text><![CDATA[Média:]]></text>
 		</element>
 		<element kind="textField" uuid="57f97f1f-93ec-4079-b2cd-4905efab010a" x="270" y="0" width="100" height="30" fontSize="12.0" pattern="¤ #,##0.00;¤ -#,##0.00">
