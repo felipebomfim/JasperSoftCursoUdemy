@@ -1,5 +1,5 @@
 <!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0-b478feaa9aab4375eba71de77b4ca138ad2f62aa  -->
-<jasperReport name="funcionarios-02" language="java" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2eee18c4-842f-4320-8dbf-40a2c892c9b1">
+<jasperReport name="funcionarios-03" language="java" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2eee18c4-842f-4320-8dbf-40a2c892c9b1">
 	<property name="com.jaspersoft.studio.data.sql.tables" value="amFzcGVyY3Vyc28uZW1wcmVzYXMgQVMgLDIyNCw2MSxmYjU4ZmQ2NS0yNzAyLTQyNDQtODQ2Mi1m&#xa;MWE3YjMyNDlhMjg7amFzcGVyY3Vyc28uZnVuY2lvbmFyaW9zICwxNSwxNSwwY2M1YjRiNS04Nzk3&#xa;LTQ5MTgtOTUyMy0xNTkyNGRmOGRlNDk7"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL Udemy Data Adapter"/>
 	<style name="Estilo_Cores_Alternadas" mode="Opaque" backcolor="#FFFFFF">
@@ -57,6 +57,18 @@ FROM jaspercurso.funcionarios,
 		<property name="com.jaspersoft.studio.field.label" value="email"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="empresas"/>
 	</field>
+	<variable name="SALARIO_TOTAL_PAGE" resetType="Column" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{salario}]]></expression>
+	</variable>
+	<variable name="SALARIO_MEDIA_PAGE" resetType="Column" calculation="Average" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{salario}]]></expression>
+	</variable>
+	<variable name="SALARIO_TOTAL_GERAL" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{salario}]]></expression>
+	</variable>
+	<variable name="SALARIO_MEDIA_GERAL" calculation="Average" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{salario}]]></expression>
+	</variable>
 	<background splitType="Stretch"/>
 	<title height="60" splitType="Stretch">
 		<element kind="image" uuid="ac5dbb28-17ff-4e6f-a9c7-56a5595be7d0" mode="Opaque" x="0" y="0" width="572" height="60" backcolor="#00D4FF">
@@ -147,7 +159,37 @@ FROM jaspercurso.funcionarios,
 			</element>
 		</band>
 	</detail>
-	<columnFooter height="45" splitType="Stretch"/>
-	<pageFooter height="54" splitType="Stretch"/>
-	<summary height="42" splitType="Stretch"/>
+	<columnFooter height="30" splitType="Stretch">
+		<element kind="staticText" uuid="9698ad33-bbeb-4fcc-bf37-6757be6e9923" x="170" y="-1" width="100" height="30" fontSize="12.0" bold="true">
+			<text><![CDATA[Total:]]></text>
+		</element>
+		<element kind="staticText" uuid="37b73f03-ae2d-49c5-ab61-c431b3078a07" x="370" y="0" width="100" height="30" fontSize="12.0" bold="true">
+			<text><![CDATA[Média:]]></text>
+		</element>
+		<element kind="textField" uuid="0accf844-ecc3-4e54-82d1-1470fd27a949" x="270" y="0" width="100" height="30" fontSize="12.0" pattern="¤ #,##0.00;¤ -#,##0.00">
+			<expression><![CDATA[$V{SALARIO_TOTAL_PAGE}]]></expression>
+		</element>
+		<element kind="textField" uuid="e6a8b91a-1d7f-4b82-8a15-8fa26193a05b" x="470" y="-1" width="100" height="30" fontSize="12.0" pattern="¤ #,##0.00;¤ -#,##0.00">
+			<expression><![CDATA[$V{SALARIO_MEDIA_PAGE}]]></expression>
+		</element>
+	</columnFooter>
+	<pageFooter height="54" splitType="Stretch">
+		<element kind="textField" uuid="47b87e2a-37dd-48d0-bcc9-0dac24779db9" x="0" y="0" width="170" height="30" pattern="MMMMM dd, yyyy">
+			<expression><![CDATA["Relatório criado em: "+DATEFORMAT(new java.util.Date(),"dd/MM/yyyy")]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="30" splitType="Stretch">
+		<element kind="staticText" uuid="002c5451-dfeb-435e-bfc1-22d0ed159f9f" x="170" y="-1" width="100" height="30" fontSize="12.0" bold="true">
+			<text><![CDATA[Total:]]></text>
+		</element>
+		<element kind="staticText" uuid="9cf89fd7-9bf4-43b7-acd3-f15050479c76" x="370" y="0" width="100" height="30" fontSize="12.0" bold="true">
+			<text><![CDATA[Média:]]></text>
+		</element>
+		<element kind="textField" uuid="57f97f1f-93ec-4079-b2cd-4905efab010a" x="270" y="0" width="100" height="30" fontSize="12.0" pattern="¤ #,##0.00;¤ -#,##0.00">
+			<expression><![CDATA[$V{SALARIO_TOTAL_GERAL}]]></expression>
+		</element>
+		<element kind="textField" uuid="cee85350-b84c-49ed-9dbe-7c48d66ac4a2" x="470" y="0" width="100" height="30" fontSize="12.0" pattern="¤ #,##0.00;¤ -#,##0.00">
+			<expression><![CDATA[$V{SALARIO_MEDIA_GERAL}]]></expression>
+		</element>
+	</summary>
 </jasperReport>
